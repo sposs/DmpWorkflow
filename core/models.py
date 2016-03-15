@@ -11,6 +11,10 @@ class JobInstance(db.EmbeddedDocument):
     status = db.StringField(verbose_name="status", required=False, default="New", choices=MAJOR_STATII)
     batchId = db.LongField(verbose_name="batchId", required=False, default=None)
     
+    def to_dict(self):
+        return {"created_at": self.created_at, "body": self.body, "author": self.author
+                "status": self.status, "batchId": self.batchId}
+    
 class Job(db.Document):
     created_at = db.DateTimeField(default=datetime.datetime.now, required=True)
     title = db.StringField(max_length=255, required=True)
