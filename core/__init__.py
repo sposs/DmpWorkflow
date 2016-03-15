@@ -13,14 +13,14 @@ app.config['MONGODB_HOST']=cfg.get("database","host")
 app.config["SECRET_KEY"] = "KeepThisS3cr3t"
 db = MongoEngine(app)
 
-def register_blueprints(app):
-    # Prevents circular imports
-    from core.views import jobs
-    from core.admin import admin
-    app.register_blueprint(jobs)
-    app.register_blueprint(admin)
 
-register_blueprints(app)
+@app.route("/jobs")
+def jobs(self):
+    db.connect()
+    res = []
+    for job in models.Job.objects:
+        res.append(job.jobInstance.to_dict())
+    return json.dumps(res)
 
 if __name__ == '__main__':
     app.run()
