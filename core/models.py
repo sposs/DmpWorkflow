@@ -20,11 +20,6 @@ class Job(db.Document):
 
     def get_absolute_url(self):
         return url_for('job', kwargs={"slug": self.slug})
-    
-    def to_dict():
-        instances = [j.to_dict() for j in self.jobInstances]
-        return {"created_at": self.created_at.strftime("%D%Y%M"), "title": self.title, 
-                "slug": self.slug, "body": self.body, "jobInstances": instances}
 
     def __unicode__(self):
         return self.title
