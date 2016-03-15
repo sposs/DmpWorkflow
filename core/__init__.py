@@ -19,7 +19,7 @@ def jobs(self):
     db.connect()
     res = []
     for job in models.Job.objects:
-        res.append(job.jobInstance.to_dict())
+        res.extend([j.to_dict() for j in job.jobInstances])
     return json.dumps(res)
 
 if __name__ == '__main__':
