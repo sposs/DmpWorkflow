@@ -17,9 +17,9 @@ db = MongoEngine(app)
 @app.route("/jobs")
 def jobs(self):
     db.connect()
-    res = {}
+    res = []
     for job in models.Job.objects:
-        res[job.title] = [j.to_dict() for j in job.jobInstances]
+        res.append(job.to_dict())
     return json.dumps(res)
 
 if __name__ == '__main__':
